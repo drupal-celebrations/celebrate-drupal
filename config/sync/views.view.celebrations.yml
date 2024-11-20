@@ -7,7 +7,6 @@ dependencies:
   content:
     - 'block_content:basic_block:60211601-87e1-405b-ab59-ba291e7811aa'
   module:
-    - facets
     - search_api
     - user
     - views_infinite_scroll
@@ -195,6 +194,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   dcon_na_2021:
     id: dcon_na_2021
     display_title: 'DrupalCon North America 2021 - Photo page'
@@ -208,7 +208,7 @@ display:
         options:
           offset: 0
       cache:
-        type: none
+        type: search_api_none
       arguments:
         field_celebration:
           id: field_celebration
@@ -228,7 +228,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: '16'
-          default_argument_skip_url: false
           summary_options: {  }
           summary:
             sort_order: asc
@@ -344,6 +343,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   dconeu2020_photos_page:
     id: dconeu2020_photos_page
     display_title: 'DrupalCon Europe 2020 - Photo page'
@@ -357,7 +357,7 @@ display:
         options:
           offset: 0
       cache:
-        type: none
+        type: search_api_none
       empty:
         area:
           id: area
@@ -391,7 +391,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: '14'
-          default_argument_skip_url: false
           summary_options: {  }
           summary:
             sort_order: asc
@@ -523,6 +522,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   drupalcon_global_2020_photo:
     id: drupalcon_global_2020_photo
     display_title: 'DrupalCon Global 2020 - Photo block'
@@ -534,7 +534,7 @@ display:
         options:
           offset: 0
       cache:
-        type: none
+        type: search_api_none
       arguments:
         field_celebration:
           id: field_celebration
@@ -554,7 +554,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: '13'
-          default_argument_skip_url: false
           summary_options: {  }
           summary:
             sort_order: asc
@@ -678,6 +677,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   events_block:
     id: events_block
     display_title: 'Events block'
@@ -782,6 +782,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   events_page:
     id: events_page
     display_title: 'Events page'
@@ -790,7 +791,7 @@ display:
     display_options:
       enabled: false
       cache:
-        type: none
+        type: search_api_none
       filters:
         status:
           id: status
@@ -891,6 +892,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   images_block:
     id: images_block
     display_title: 'Images block'
@@ -898,7 +900,7 @@ display:
     position: 4
     display_options:
       cache:
-        type: none
+        type: search_api_none
       filters:
         status:
           id: status
@@ -979,47 +981,6 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-        facets:
-          id: facets
-          table: search_api_index_celebration
-          field: facets
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: facets_filter
-          operator: '='
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: facet_vQkKb3ga
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          facets:
-            images_country: images_country
-            image_category_block: image_category_block
       filter_groups:
         operator: AND
         groups:
@@ -1044,12 +1005,12 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
-        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   images_block_no_facets:
     id: images_block_no_facets
     display_title: 'Images block (without facets)'
@@ -1158,6 +1119,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   images_page:
     id: images_page
     display_title: 'DrupalCon Global 2020 - Photo page'
@@ -1171,7 +1133,7 @@ display:
         options:
           offset: 0
       cache:
-        type: none
+        type: search_api_none
       arguments:
         field_celebration:
           id: field_celebration
@@ -1191,7 +1153,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: '13'
-          default_argument_skip_url: false
           summary_options: {  }
           summary:
             sort_order: asc
@@ -1307,6 +1268,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   videos_block:
     id: videos_block
     display_title: 'Videos block'
@@ -1396,47 +1358,6 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-        facets:
-          id: facets
-          table: search_api_index_celebration
-          field: facets
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: facets_filter
-          operator: '='
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: facet_jQSAJzqF
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          facets:
-            video_category_block: video_category_block
-            videos_country: videos_country
       filter_groups:
         operator: AND
         groups:
@@ -1451,7 +1372,6 @@ display:
       max-age: 0
       contexts:
         - 'languages:language_interface'
-        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
@@ -1459,6 +1379,7 @@ display:
         - 'config:facets.facet.video_category_block'
         - 'config:facets.facet.videos_country'
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   videos_block_no_facets:
     id: videos_block_no_facets
     display_title: 'Videos block (without facets)'
@@ -1578,6 +1499,7 @@ display:
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'
   videos_page:
     id: videos_page
     display_title: 'Videos page'
@@ -1587,7 +1509,7 @@ display:
       enabled: false
       title: Videos
       cache:
-        type: none
+        type: search_api_none
       filters:
         status:
           id: status
@@ -1724,9 +1646,9 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
-        - url
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags:
         - 'config:search_api.index.celebration'
+        - 'search_api_list:celebration'

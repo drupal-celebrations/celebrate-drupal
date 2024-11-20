@@ -11,7 +11,7 @@ third_party_settings:
 name: Volunteer
 type: volunteer
 description: 'Team member that volunteers at the celebratedrupal.org project.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: false

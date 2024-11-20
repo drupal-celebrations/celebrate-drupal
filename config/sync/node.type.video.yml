@@ -12,7 +12,7 @@ third_party_settings:
 name: Video
 type: video
 description: 'Upload your video celebration.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 0
 display_submitted: true

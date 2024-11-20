@@ -12,7 +12,7 @@ third_party_settings:
 name: Image
 type: image
 description: 'Upload a photo about how you celebrate.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: true

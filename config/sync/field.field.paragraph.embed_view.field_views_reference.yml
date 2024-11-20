@@ -54,10 +54,4 @@ settings:
     watchdog: 0
     who_s_new: 0
     who_s_online: 0
-  enabled_settings:
-    pager: pager
-    argument: argument
-    limit: limit
-    offset: offset
-    title: title
 field_type: viewsreference
