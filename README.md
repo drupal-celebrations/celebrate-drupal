@@ -1,6 +1,6 @@
-# Celebrate Drupal 9
+# Celebrate Drupal
 
-This project was setup to showcase Celebrations about the Drupal 9 launch.
+This project was setup to showcase Celebrations about the Drupal 9 launch, and has continued on for all types of celebrations related to Drupal.
 
 ## Getting Started
 
@@ -40,9 +40,9 @@ Or use `drush uli` to create a one-time login link.
 
 ## Services
 
-* PHP 7.4
-* MariaDB 10.4
-* Redis 5
+* PHP
+* MariaDB
+* Redis
 
 ## Hosted by Platform.sh
 
