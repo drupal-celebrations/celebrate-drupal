@@ -4,7 +4,7 @@ base theme: stable9
 description: "A theme for the Drupal Celebrations project."
 package: Custom
 version: VERSION
-core_version_requirement: "^9"
+core_version_requirement: "^10"
 
 regions:
   header_logo: Header Logo
