@@ -26,10 +26,14 @@ html {
 }
 
 .site-logo {
-  @apply w-12 mr-4;
+  @apply w-36 mr-4;
 }
 
-.site-name,
+.site-name {
+  @apply font-sans;
+  font-size: 2.5em;
+}
+
 .menu,
 .block-system-powered-by-block,
 .block-hosting-platform-sh,
