@@ -2,7 +2,7 @@ _core:
   default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI
 langcode: en
 uuid: cdce331d-723a-41b8-9f8a-fba6430c2e02
-name: 'Celebrate Drupal'
+name: 'Celebrate Drupal CMS'
 mail: contact@celebratedrupal.org
 slogan: 'Celebrate together as a community'
 page:
