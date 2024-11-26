@@ -76,7 +76,7 @@ module.exports = {
       '2xl': '1600px'
     },
     fontFamily: {
-      sans: ["metropolis", "sans-serif"],
+      sans: ["Noto Sans", "sans-serif"],
       serif: ["Lora", "georgia", "serif"],
       mono: [
         "Menlo",
