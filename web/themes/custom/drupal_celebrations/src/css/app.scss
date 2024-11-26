@@ -27,12 +27,13 @@ html {
 
 .site-logo {
   @apply mr-4;
-  width: 3rem;
+  width: 5rem;
 }
 
 .site-name {
   @apply font-sans;
   font-size: 2.5em;
+  margin-bottom: 0.75em;
 }
 
 .menu,

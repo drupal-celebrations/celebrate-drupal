@@ -77,7 +77,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ["Noto Sans", "sans-serif"],
-      serif: ["Lora", "georgia", "serif"],
+      serif: ["Noto Sans", "sans-serif"],
       mono: [
         "Menlo",
         "Monaco",
