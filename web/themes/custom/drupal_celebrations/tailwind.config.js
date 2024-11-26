@@ -61,7 +61,7 @@ module.exports = {
       },
       blue: {
         '100': '#EEF7FD',
-        '200': '#D4EBFA',
+        '200': '#CCEDF9', // drupal light blue
         '300': '#BADFF7',
         '400': '#87C8F1',
         '500': '#006AA9', // dark drupal blue
