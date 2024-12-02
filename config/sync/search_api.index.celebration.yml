@@ -83,7 +83,7 @@ field_settings:
     boost: 5.0
     configuration:
       roles:
-        anonymous: anonymous
+        - anonymous
       view_mode:
         'entity:node':
           page: search_result
