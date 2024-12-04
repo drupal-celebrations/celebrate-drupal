@@ -18,14 +18,12 @@ required: true
 translatable: false
 default_value:
   -
-    options:
-      pager: mini
-      argument: ''
-      limit: '6'
-      offset: ''
-      title: 0
     display_id: videos_block
-    data: 'a:5:{s:5:"pager";s:4:"mini";s:8:"argument";s:0:"";s:5:"limit";s:1:"6";s:6:"offset";s:0:"";s:5:"title";i:0;}'
+    options:
+      title: 0
+      argument: ''
+    title: 0
+    argument: null
     target_uuid: b6d8f2fb-b035-455f-a65e-1c8d97e34bbc
 default_value_callback: ''
 settings:
@@ -43,15 +41,14 @@ settings:
     volunteers: volunteers
     block_content: 0
     content: 0
-    content_recent: 0
     files: 0
     frontpage: 0
     media: 0
     media_library: 0
     moderated_content: 0
+    redirect: 0
+    redirect_404: 0
     taxonomy_term: 0
     user_admin_people: 0
     watchdog: 0
-    who_s_new: 0
-    who_s_online: 0
 field_type: viewsreference
