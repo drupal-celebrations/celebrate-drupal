@@ -1,104 +1,77 @@
 # Complete list of all available properties: https://docs.upsun.com/app/reference/
 applications:
   celebrate-drupal:
-    # Application source code directory
     source:
-      root: "/"
+      root: '/'
 
-    # The runtime the application uses.
-    # Complete list of available runtimes: https://docs.upsun.com/app/reference/type/
-    type: "php:8.4"
+    type: 'php:8.4'
 
-    # Choose which container profile (ratio CPU+RAM) your app will use. Default value comes from the image itself.
-    # More information: https://docs.upsun.com/anchors/resources/manage/configuration/profiles/adjust/
-    # container_profile:
-
-    # The relationships of the application with services or other applications.
-    # The left-hand side is the name of the relationship as it will be exposed
-    # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
-    # side is in the form `<service name>:<endpoint name>`.
-    # More information: https://docs.upsun.com/app/reference/relationships/
     relationships:
-      mariadb:
-      redis:
-      
+      mariadb: 'db:mariadb'
+      redis: 'cache:redis'
 
-    # Mounts define directories that are writable after the build is complete.
-    # More information: https://docs.upsun.com/app/reference/mounts/
-    # mounts:
-    #   "/var/uploads": # Represents the path in the app.
-    #     source: "storage" # "storage" sources are unique to the app, but shared among instances of the app. "service" sources can be shared among apps.
-    #     source_path: "var/uploads" # The subdirectory within the mounted disk (the source) where the mount should point.
+    mounts:
+        '/web/sites/default/files':
+            source: storage
+            source_path: 'files'
+        '/tmp':
+            source: storage
+            source_path: 'tmp'
+        '/private':
+            source: storage
+            source_path: 'private'
+        '/.drush':
+            source: storage
+            source_path: 'drush'
+        '/drush-backups':
+            source: storage
+            source_path: 'drush-backups'
+    build:
+        flavor: composer
 
-    # The web key configures the web server running in front of your app.
-    # More information: https://docs.upsun.com/app/reference/web/
     web:
-      # Commands are run once after deployment to start the application process.
-      # More information: https://docs.upsun.com/app/reference/web/commands/
-      # commands:
-        # The command to launch your app. If it terminates, it’s restarted immediately.
-      #   You can use the $PORT or the $SOCKET environment variable depending on the socket family of your upstream
-      #   PHP applications run PHP-fpm by default
-      #   Read about alternative commands here: https://docs.upsun.com/languages/php/alternate-start-commands/
-      #   start: echo 'Put your start command here'
-      # You can listen to a UNIX socket (unix) or a TCP port (tcp, default).
-      # For PHP, the defaults are configured for PHP-FPM and shouldn't need adjustment.
-      # Whether your app should speak to the webserver via TCP or Unix socket. Defaults to tcp
-      # More information: https://docs.upsun.com/app/reference/web/upstream/socket-family/
-      # upstream:
-      #  socket_family: unix
-      # Each key in locations is a path on your site with a leading /.
-      # More information: https://docs.upsun.com/app/reference/web/locations/
       locations:
-        "/":
-          passthru: "/index.php"
-          root: "web"
-          
-        
-
-    # Alternate copies of the application to run as background processes.
-    # More information: https://docs.upsun.com/app/reference/workers/
-    # workers:
-
-    # The timezone for crons to run. Format: a TZ database name. Defaults to UTC, which is the timezone used for all logs
-    # no matter the value here. More information: https://docs.upsun.com/app/timezone/
-    # timezone: <time-zone>
-
-    # Access control for roles accessing app environments.
-    # More information: https://docs.upsun.com/app/reference/access/
-    # access:
-
-    # Variables to control the environment. More information: https://docs.upsun.com/app/reference/variables/
+        '/':
+            root: 'web'
+            expires: 5m
+            passthru: '/index.php'
+            allow: false
+            rules:
+                '\.(avif|webp|jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$':
+                    allow: true
+                '^/robots\.txt$':
+                    allow: true
+                '^/sitemap\.xml$':
+                    allow: true
+                '^/sites/sites\.php$':
+                    scripts: false
+                '^/sites/[^/]+/settings.*?\.php$':
+                    scripts: false
+        '/sites/default/files':
+            allow: true
+            expires: 5m
+            passthru: '/index.php'
+            root: 'web/sites/default/files'
+            scripts: false
+            rules:
+                '^/sites/default/files/(css|js)':
+                    expires: 2w
     variables:
       env:
-        N_PREFIX: "/app/.global"
-        
+        N_PREFIX: '/app/.global'
 
-    # Outbound firewall rules for the application. More information: https://docs.upsun.com/app/reference/firewall/
-    # firewall:
-
-    # Specifies a default set of build tasks to run. Flavors are language-specific.
-    # More information: https://docs.upsun.com/app/reference/build/
     build:
       flavor: none
 
-    # Installs global dependencies as part of the build process. They’re independent of your app’s dependencies and
-    # are available in the PATH during the build process and in the runtime environment. They’re installed before
-    # the build hook runs using a package manager for the language.
-    # More information: https://docs.upsun.com/app/reference/dependencies/
     dependencies:
       nodejs:
-        n: "*"
-        npx: "*"
-        yarn: "^1.22.0"
+        n: '*'
+        npx: '*'
+        yarn: '^1.22.0'
       php:
-        composer/composer: "^2"
+        composer/composer: '^2'
 
-    # Hooks allow you to customize your code/environment as the project moves through the build and deploy stages
-    # More information: https://docs.upsun.com/app/reference/hooks/
     hooks:
-      # The build hook is run after any build flavor.
-      # More information: https://docs.upsun.com/app/hooks/compare/compare/build/
       build: |
         set -eux
         composer --no-ansi --no-interaction install --no-progress --prefer-dist --optimize-autoloader --no-dev
@@ -106,13 +79,20 @@ applications:
         hash -r
         yarn
         yarn build
-        
-      # The deploy hook is run after the app container has been started, but before it has started accepting requests.
-      # More information: https://docs.upsun.com/app/hooks/compare/compare/deploy/
+
       deploy: |
         set -eux
-        # echo 'Put your deploy command here'
-        
+        if [ -n "$(drush status --field=bootstrap)" ]; then
+            drush -y cache-rebuild
+            drush -y updatedb
+            if [ -n "$(ls $(drush php:eval "echo realpath(Drupal\Core\Site\Settings::get('config_sync_directory'));")/*.yml 2>/dev/null)" ]; then
+                drush -y config-import
+            else
+                echo "No config to import. Skipping."
+            fi
+        else
+            echo "Drupal not installed. Skipping standard Drupal deploy steps"
+        fi
 
       # The post_deploy hook is run after the app container has been started and after it has started accepting requests.
       # More information: https://docs.upsun.com/app/hooks/compare/compare/post-deploy/
@@ -120,7 +100,11 @@ applications:
 
     # Scheduled tasks for the app.
     # More information: https://docs.upsun.com/app/reference/crons/
-    # crons:
+    crons:
+        celebrate-drupal:
+            spec: '*/19 * * * *'
+            commands:
+                start: 'cd web ; drush core-cron'
 
     # Customizations to your PHP or Lisp runtime. More information: https://docs.upsun.com/app/reference/runtime/
     # runtime:
@@ -128,32 +112,27 @@ applications:
     # More information: https://docs.upsun.com/app/reference/additional-hosts/
     # additional_hosts:
 
-# The services of the project.
-#
-# Each service listed will be deployed
-# to power your Upsun project.
-# More information: https://docs.upsun.com/services/
-# Full list of available services: https://docs.upsun.com/services/available/
 services:
   mariadb:
-    type: mariadb:11.8 # All available versions are: 11.8, 11.4, 10.11, 10.6
+    type: mariadb:11.8
 
   redis:
-    type: redis:8.0 # All available versions are: 8.0, 7.2
+    type: redis:8.0
 
-  
-
-# The routes of the project.
-#
-# Each route describes how an incoming URL is going
-# to be processed by Upsun.
-# More information: https://docs.upsun.com/routes/
 routes:
-  "https://{default}/":
+  'https://{default}/':
     type: upstream
-    upstream: "celebrate-drupal:http"
-  # A basic redirect definition
-  # More information: https://docs.upsun.com/routes/examples/redirect/
-  "https://www.{default}":
+    upstream: 'celebrate-drupal:http'
+    cache:
+      enabled: true
+      # Base the cache on the session cookie and custom Drupal cookies. Ignore all other cookies.
+      cookies: ['/^SS?ESS/', '/^Drupal.visitor/']
+    redirects:
+      expires: 1d
+      paths:
+        '/files/drupalcon-prague-2022-photobooth.zip':
+          to: 'https://{default}/sites/default/files/DrupalConPrague2022-photobooth.zip'
+
+  'https://www.{default}':
     type: redirect
-    to: "https://{default}/"
+    to: 'https://{default}/'

@@ -16,3 +16,21 @@ export CACHE_URL="${CACHE_SCHEME}://${CACHE_HOST}:${CACHE_PORT}"
 
 # Set Redis environment variables
 export REDIS_URL="$CACHE_URL"
+
+# Allow executable app dependencies from Composer to be run from the path.
+if [ -n "$PLATFORM_APP_DIR" -a -f "$PLATFORM_APP_DIR"/composer.json ] ; then
+  bin=$(composer config bin-dir --working-dir="$PLATFORM_APP_DIR" --no-interaction 2>/dev/null)
+  export PATH="${PLATFORM_APP_DIR}/${bin:-vendor/bin}:${PATH}"
+fi
+
+# This is necessary for nvm to work.
+unset NPM_CONFIG_PREFIX
+# Disable npm update notifier; being a read only system it will probably annoy you.
+export NO_UPDATE_NOTIFIER=1
+# This loads nvm for general usage.
+export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Set the URI for Drush commands.
+export PRIMARY_URL="$(echo "$PLATFORM_ROUTES" | base64 --decode | jq -r 'to_entries[] | select(.value.primary) | .key | rtrimstr("/")')"
+export DRUSH_OPTIONS_URI="$PRIMARY_URL"
