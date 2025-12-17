@@ -1,24 +1,18 @@
-# Statements in this file will be executed (sourced) by the shell in SSH
-# sessions, in deploy hooks, in cron jobs, and in the application's runtime
-# environment. This file must be placed in the root of the application, not
-# necessarily the git repository's root. In case of multiple applications,
-# each application can have its own .environment file.
+# Set database environment variables
+export DB_HOST="$MARIADB_HOST"
+export DB_PORT="$MARIADB_PORT"
+export DB_PATH="$MARIADB_PATH"
+export DB_DATABASE="$DB_PATH"
+export DB_USERNAME="$MARIADB_USERNAME"
+export DB_PASSWORD="$MARIADB_PASSWORD"
+export DB_SCHEME="$MARIADB_SCHEME"
+export DATABASE_URL="${DB_SCHEME}://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_PATH}"
 
-# Allow executable app dependencies from Composer to be run from the path.
-if [ -n "$PLATFORM_APP_DIR" -a -f "$PLATFORM_APP_DIR"/composer.json ] ; then
-  bin=$(composer config bin-dir --working-dir="$PLATFORM_APP_DIR" --no-interaction 2>/dev/null)
-  export PATH="${PLATFORM_APP_DIR}/${bin:-vendor/bin}:${PATH}"
-fi
+# Set Cache environment variables
+export CACHE_HOST="$REDIS_HOST"
+export CACHE_PORT="$REDIS_PORT"
+export CACHE_SCHEME="$REDIS_SCHEME"
+export CACHE_URL="${CACHE_SCHEME}://${CACHE_HOST}:${CACHE_PORT}"
 
-# This is necessary for nvm to work.
-unset NPM_CONFIG_PREFIX
-# Disable npm update notifier; being a read only system it will probably annoy you.
-export NO_UPDATE_NOTIFIER=1
-# This loads nvm for general usage.
-export NVM_DIR="$PLATFORM_APP_DIR/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-# Set the URI for Drush commands.
-export PRIMARY_URL="$(echo "$PLATFORM_ROUTES" | base64 --decode | jq -r 'to_entries[] | select(.value.primary) | .key | rtrimstr("/")')"
-export DRUSH_OPTIONS_URI="$PRIMARY_URL"
-
+# Set Redis environment variables
+export REDIS_URL="$CACHE_URL"
