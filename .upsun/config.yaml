@@ -1,0 +1,115 @@
+applications:
+    drupal:
+        type: php:8.5
+        relationships:
+            mariadb: 'db:mysql'
+            redis: 'cache:redis'
+        mounts:
+            # The default Drupal files directory.
+            '/web/sites/default/files':
+                source: storage
+                source_path: 'files'
+            # Drupal gets its own dedicated tmp directory. The settings.platformsh.php
+            # file will automatically configure Drupal to use this directory.
+            '/tmp':
+                source: storage
+                source_path: 'tmp'
+            # Private file uploads are stored outside the web root. The settings.platformsh.php
+            # file will automatically configure Drupal to use this directory.
+            '/private':
+                source: storage
+                source_path: 'private'
+            # Drush needs a scratch space for its own caches.
+            '/.drush':
+                source: storage
+                source_path: 'drush'
+            # Drush will try to save backups to this directory, so it must be
+            # writeable even though you will almost never need to use it.
+            '/drush-backups':
+                source: storage
+                source_path: 'drush-backups'
+        build:
+            flavor: composer
+        web:
+            locations:
+                '/':
+                    root: 'web'
+                    expires: 5m
+                    passthru: '/index.php'
+                    allow: false
+                    rules:
+                        '\.(avif|webp|jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$':
+                            allow: true
+                        '^/robots\.txt$':
+                            allow: true
+                        '^/sitemap\.xml$':
+                            allow: true
+                        '^/sites/sites\.php$':
+                            scripts: false
+                        '^/sites/[^/]+/settings.*?\.php$':
+                            scripts: false
+                '/sites/default/files':
+                    allow: true
+                    expires: 5m
+                    passthru: '/index.php'
+                    root: 'web/sites/default/files'
+                    scripts: false
+                    rules:
+                        '^/sites/default/files/(css|js)':
+                            expires: 2w
+        hooks:
+            build: |
+                set -e
+            deploy: |
+                set -e
+                if [ -n "$(drush status --field=bootstrap)" ]; then
+                    drush -y cache-rebuild
+                    drush -y updatedb
+                    if [ -n "$(ls $(drush php:eval "echo realpath(Drupal\Core\Site\Settings::get('config_sync_directory'));")/*.yml 2>/dev/null)" ]; then
+                        drush -y config-import
+                    else
+                        echo "No config to import. Skipping."
+                    fi
+                else
+                    echo "Drupal not installed. Skipping standard Drupal deploy steps"
+                fi
+        crons:
+            # Run Drupal's cron tasks every 19 minutes.
+            drupal:
+                spec: '*/19 * * * *'
+                commands:
+                    start: 'cd web ; drush core-cron'
+        runtime:
+            # Enable the redis extension so Drupal can communicate with the Redis cache.
+            extensions:
+                - redis
+                - sodium
+                - apcu
+                - blackfire
+                - gd
+        source:
+            root: /
+
+services:
+    db:
+        type: mariadb:11.8
+    cache:
+        type: redis:8.0
+
+routes:
+    "https://{default}/":
+        type: upstream
+        upstream: "drupal:http"
+        cache:
+            enabled: true
+            # Base the cache on the session cookie and custom Drupal cookies. Ignore all other cookies.
+            cookies: ['/^SS?ESS/', '/^Drupal.visitor/']
+        redirects:
+            expires: 1d
+            paths:
+                '/files/drupalcon-prague-2022-photobooth.zip':
+                    to: 'https://{default}/sites/default/files/DrupalConPrague2022-photobooth.zip'
+
+    "https://www.{default}/":
+        type: redirect
+        to: "https://{default}/"

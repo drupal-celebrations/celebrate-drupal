@@ -7,6 +7,4 @@ label: 'Content: Event'
 tags:
   twitter_cards_image: '[node:field_image:entity:field_media_image:rectangular_0_5x:url]'
   twitter_cards_image_alt: '[node:field_image:entity:field_media_image:alt]'
-  twitter_cards_image_height: '[node:field_image:entity:field_media_image:rectangular_0_5x:height]'
-  twitter_cards_image_width: '[node:field_image:entity:field_media_image:rectangular_0_5x:width]'
   twitter_cards_type: summary

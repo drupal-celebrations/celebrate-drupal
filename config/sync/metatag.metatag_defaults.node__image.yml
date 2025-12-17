@@ -8,7 +8,5 @@ tags:
   twitter_cards_description: '[node:field_description:value]'
   twitter_cards_image: '[node:field_image:entity:field_media_image:flexible_0_5x:url]'
   twitter_cards_image_alt: '[node:field_image:entity:field_media_image:alt]'
-  twitter_cards_image_height: '[node:field_image:entity:field_media_image:flexible_0_5x:height]'
-  twitter_cards_image_width: '[node:field_image:entity:field_media_image:flexible_0_5x:width]'
   twitter_cards_title: '[node:title]'
   twitter_cards_type: summary_large_image

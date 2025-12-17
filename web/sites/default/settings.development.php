@@ -5,8 +5,6 @@
  * Drupal 8 local development override configuration file.
  */
 
-use Drupal\Component\Assertion\Handle;
-
 /**
  * Default development database.
  */
@@ -18,7 +16,6 @@ $databases['default']['default'] = [
 ];
 
 assert_options(ASSERT_ACTIVE, TRUE);
-Handle::register();
 
 /**
  * Salt for one-time login links, cancel links, form tokens, etc.

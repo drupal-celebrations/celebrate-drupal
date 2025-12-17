@@ -153,18 +153,9 @@ $settings['entity_update_batch_size'] = 50;
  */
 $settings['config_sync_directory'] = '../config/sync';
 
-/**
- * Automatic Platform.sh settings.
- */
-if (file_exists($app_root . '/' . $site_path . '/settings.platformsh.php')) {
-  include $app_root . '/' . $site_path . '/settings.platformsh.php';
-}
-
-if ($env = getenv('SB_ENVIRONMENT')) {
-  $env_settings = $app_root . '/' . $site_path . '/settings.' . $env . '.php';
-  if (file_exists($env_settings)) {
-    include $env_settings;
-  }
+// Upsun configuration
+if (getenv('PLATFORM_APPLICATION') && file_exists(__DIR__ . '/settings.upsun.php')) {
+  include __DIR__ . '/settings.upsun.php';
 }
 
 /**
