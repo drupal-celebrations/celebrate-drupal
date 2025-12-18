@@ -159,6 +159,13 @@ if (getenv('PLATFORM_APPLICATION') && file_exists(__DIR__ . '/settings.upsun.php
 }
 
 /**
+ * Automatic Platform.sh settings.
+ */
+if (file_exists($app_root . '/' . $site_path . '/settings.platformsh.php')) {
+  include $app_root . '/' . $site_path . '/settings.platformsh.php';
+}
+
+/**
  * Local settings. These come last so that they can override anything.
  */
 if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
