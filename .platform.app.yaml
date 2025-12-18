@@ -60,8 +60,8 @@ build:
 variables:
     env:
         # Update these for your desired NVM and Node versions.
-        NVM_VERSION: v0.39.1
-        NODE_VERSION: v18.7.0
+        NVM_VERSION: v0.39.7
+        NODE_VERSION: v22.20.0
 
 # The hooks executed at various points in the lifecycle of the application.
 hooks:
