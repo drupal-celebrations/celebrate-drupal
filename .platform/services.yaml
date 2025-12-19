@@ -4,8 +4,8 @@
 # to power your Platform.sh project.
 
 db:
-    type: mariadb:10.4
+    type: mariadb:11.8
     disk: 2096
 
 cacheredis:
-    type: redis:7.0
+    type: redis:8.0
