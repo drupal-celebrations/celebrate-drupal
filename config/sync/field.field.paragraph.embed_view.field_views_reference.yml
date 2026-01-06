@@ -18,37 +18,38 @@ required: true
 translatable: false
 default_value:
   -
+    target_uuid: b6d8f2fb-b035-455f-a65e-1c8d97e34bbc
     display_id: videos_block
     options:
       title: 0
       argument: ''
     title: 0
     argument: null
-    target_uuid: b6d8f2fb-b035-455f-a65e-1c8d97e34bbc
 default_value_callback: ''
 settings:
   handler: 'default:view'
   handler_settings:
     target_bundles: null
-    auto_create: 0
+    auto_create: false
   plugin_types:
     block: block
-    default: 0
-    page: 0
-    feed: 0
+    default: '0'
+    page: '0'
+    feed: '0'
   preselect_views:
     celebrations: celebrations
     volunteers: volunteers
-    block_content: 0
-    content: 0
-    files: 0
-    frontpage: 0
-    media: 0
-    media_library: 0
-    moderated_content: 0
-    redirect: 0
-    redirect_404: 0
-    taxonomy_term: 0
-    user_admin_people: 0
-    watchdog: 0
+    block_content: '0'
+    content: '0'
+    files: '0'
+    frontpage: '0'
+    media: '0'
+    media_library: '0'
+    moderated_content: '0'
+    redirect: '0'
+    redirect_404: '0'
+    taxonomy_term: '0'
+    user_admin_people: '0'
+    watchdog: '0'
+  enabled_settings: {  }
 field_type: viewsreference
