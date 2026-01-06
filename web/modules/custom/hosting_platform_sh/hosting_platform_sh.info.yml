@@ -1,5 +1,5 @@
-name: Hosting Platform.sh
-description: Add a custom block to show the hosting by Platform.sh.
+name: Hosting upsun.com
+description: Add a custom block to show the hosting by upsun.com.
 package: Custom
 type: module
 core_version_requirement: ^9.0 || ^10.0 || ^11.0

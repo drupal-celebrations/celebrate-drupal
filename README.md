@@ -44,12 +44,12 @@ Or use `drush uli` to create a one-time login link.
 * MariaDB
 * Redis
 
-## Hosted by Platform.sh
+## Hosted by upsun.com
 
-This project is kindly sponsored and hosted by [platform.sh](https://platform.sh).
+This project is kindly sponsored and hosted by [upsun.com](https://upsun.com).
 
 ### Further Reading
 
 * [Drupal](https://www.drupal.org/)
-* [Drupal on Platform.sh](https://docs.platform.sh/frameworks/drupal8.html)
-* [PHP on Platform.sh](https://docs.platform.sh/languages/php.html)
+* [Drupal on upsun.com](https://fixed.docs.upsun.com/guides/drupal/deploy.html)
+* [PHP on upsun.com](https://fixed.docs.upsun.com/languages/php.html)
