@@ -28,7 +28,7 @@
 ] %}
 <div{{ attributes.addClass(classes) }}>
   <div class="flex mb-4 w-full flex-wrap">
-    <div class="flex flex-col md:w-1/2 lg:w-1/2 px-4 mb-4">
+    {# <div class="flex flex-col md:w-1/2 lg:w-1/2 px-4 mb-4">
       <h2>{% trans %}Video{% endtrans %}</h2>
       <div class="flex-grow">
         {% trans %}
@@ -38,7 +38,7 @@
         {% endtrans %}
       </div>
       <a{{ attributes.addClass(buttonClasses) }} href="{{ path('node.add', {'node_type': 'video'}) }}">{% trans %}Add Video{% endtrans %}</a>
-    </div>
+    </div> #}
     <div class="flex flex-col md:w-1/2 lg:w-1/2 px-4 mb-4">
       <h2>{% trans %}Photo{% endtrans %}</h2>
       <div class="flex-grow">
