@@ -32,23 +32,23 @@ html {
 
 .site-name {
   @apply font-sans;
-  font-size: 2.5em;
-  margin-bottom: 0.75em;
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
 }
 
 h2.field.field--name-field-section-title {
-  margin-bottom: 0.3em;
+  margin-bottom: 0.3rem;
 }
 
 .field.field--name-field-text {
-  font-size: 1.2em;
+  font-size: 1.2rem; // currently it is 19.2px -- how to make it 20px?
 }
 .field.field--name-field-text h3 {
-  margin-bottom: 0.3em;
+  margin-bottom: 0.3rem;
 }
 
 nav#block-useraccountmenu {
-  margin-bottom: 2.0em;
+  margin-bottom: 2.0rem;
 }
 
 .menu,
