@@ -43,8 +43,15 @@
       {# <h2>{% trans %}Photo{% endtrans %}</h2> #}
       <div class="flex-grow">
         {% trans %}
-          <p>It’s time to celebrate the people who make this community legendary. Grab your favorite Drupal gear, snap a selfie, and show us how you’re marking this historic launch!</p>
-          <p>What has been the most meaningful part of the journey for you? Let’s fill the feed with our favorite faces and memories.</p>
+          <p><strong>It's time to celebrate 25 years of Drupal! 🎉</strong></p>
+          <p>As part of the celebration, we're working on a <strong>birthday picture wall</strong> for the Drupal community. The photos will come from you, the community that makes Drupal so special. 💙</p>
+          <p>The idea is simple and fun. Share a photo that visually represents "25" in any of these easy ways:</p>
+          <ul>
+            <li>Holding up <strong>two fingers</strong> + <strong>five fingers</strong> (25) ✌️🖐️</li>
+            <li>Holding a small sign that says <strong>"25"</strong></li>
+            <li>Writing <strong>"25"</strong> in any creative way (paper, whiteboard, notebook, screen, sticky notes, cake, etc.) ✍️🎨🖌️</li>
+          </ul>
+          <p>We're excited to see the many creative ways you bring <strong>"25"</strong> to life!</p>
         {% endtrans %}
       </div>
       <a{{ attributes.addClass(buttonClasses) }} href="{{ path('node.add', {'node_type': 'image'}) }}">{% trans %}Add a photo{% endtrans %}</a>
