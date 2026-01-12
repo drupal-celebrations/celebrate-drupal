@@ -10,6 +10,7 @@ dependencies:
     - 'block_content:basic_block:772ded91-fa4f-4f8f-b061-6634fcb268ae'
     - 'block_content:basic_block:a428fdc7-a570-4241-826d-c65d9a5aface'
     - 'taxonomy_term:celebration:5b8693e2-7ef2-4897-84f9-2904f8a2c71d'
+    - 'taxonomy_term:celebration:9adf058b-3e9a-477e-bd13-bf9313f7df5e'
   module:
     - search_api
     - user
@@ -1009,7 +1010,7 @@ display:
           plugin_id: search_api_term
           operator: or
           value:
-            - 22
+            - 23
           group: 1
           exposed: false
           expose:
@@ -1175,7 +1176,7 @@ display:
           plugin_id: search_api_term
           operator: or
           value:
-            - 22
+            - 23
           group: 1
           exposed: false
           expose:
@@ -1494,6 +1495,7 @@ display:
           operator: or
           value:
             - 22
+            - 23
           group: 1
           exposed: false
           expose:
@@ -1543,6 +1545,7 @@ display:
     cache_metadata:
       max-age: 0
       contexts:
+        - 'facets_filter:f'
         - 'languages:language_interface'
         - url.query_args
         - 'user.node_grants:view'
@@ -1652,6 +1655,7 @@ display:
           operator: or
           value:
             - 22
+            - 23
           group: 1
           exposed: false
           expose:
