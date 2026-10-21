@@ -56,7 +56,6 @@
 
 {% set heading_id = attributes.id ~ '-menu'|clean_id %}
 
-<input id="{{ heading_id_toggle }}" type="checkbox" class="visually-hidden" aria-label="Toggle navigation">
 <nav role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes.addClass(classes)|without('role', 'aria-labelledby') }}>
   {# Label. If not displayed, we still provide it for screen readers. #}
   {% if not configuration.label_display %}
