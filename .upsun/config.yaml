@@ -4,11 +4,10 @@ applications:
     source:
       root: '/'
 
-    type: 'php:8.4'
-
-    relationships:
-      mariadb: 'db:mariadb'
-      redis: 'cache:redis'
+    # Static mode: the site is a frozen HTML export in /static (built by scripts/staticify.py),
+    # served by nginx with no PHP runtime. Public files are still served from the files mount.
+    # To go back to Drupal, revert the commit that introduced this.
+    type: 'nodejs:22'
 
     mounts:
         '/web/sites/default/files':
@@ -26,92 +25,32 @@ applications:
         '/drush-backups':
             source: storage
             source_path: 'drush-backups'
-    build:
-        flavor: composer
 
     web:
+      commands:
+        start: sleep infinity
       locations:
         '/':
-            root: 'web'
-            expires: 5m
-            passthru: '/index.php'
-            allow: false
-            rules:
-                '\.(avif|webp|jpe?g|png|gif|svgz?|css|js|map|ico|bmp|eot|woff2?|otf|ttf)$':
-                    allow: true
-                '^/robots\.txt$':
-                    allow: true
-                '^/sitemap\.xml$':
-                    allow: true
-                '^/sites/sites\.php$':
-                    scripts: false
-                '^/sites/[^/]+/settings.*?\.php$':
-                    scripts: false
-        '/sites/default/files':
-            allow: true
-            expires: 5m
-            passthru: '/index.php'
-            root: 'web/sites/default/files'
+            root: 'static'
+            index: ['index.html']
+            expires: 1h
+            passthru: false
             scripts: false
+            allow: true
+        '/sites/default/files':
+            root: 'web/sites/default/files'
+            expires: 1h
+            passthru: false
+            scripts: false
+            allow: true
             rules:
                 '^/sites/default/files/(css|js)':
                     expires: 2w
-    variables:
-      env:
-        N_PREFIX: '/app/.global'
 
     build:
       flavor: none
 
-    dependencies:
-      nodejs:
-        n: '*'
-        npx: '*'
-        yarn: '^1.22.0'
-      php:
-        composer/composer: '^2'
-
-    hooks:
-      build: |
-        set -eux
-        composer --no-ansi --no-interaction install --no-progress --prefer-dist --optimize-autoloader --no-dev
-        n auto || n lts
-        hash -r
-        yarn
-        yarn build
-
-      deploy: |
-        set -eux
-        if [ -n "$(drush status --field=bootstrap)" ]; then
-            drush -y cache-rebuild
-            drush -y updatedb
-            if [ -n "$(ls $(drush php:eval "echo realpath(Drupal\Core\Site\Settings::get('config_sync_directory'));")/*.yml 2>/dev/null)" ]; then
-                drush -y config-import
-            else
-                echo "No config to import. Skipping."
-            fi
-        else
-            echo "Drupal not installed. Skipping standard Drupal deploy steps"
-        fi
-
-      # The post_deploy hook is run after the app container has been started and after it has started accepting requests.
-      # More information: https://docs.upsun.com/app/hooks/compare/compare/post-deploy/
-      # post_deploy: |
-
-    # Scheduled tasks for the app.
-    # More information: https://docs.upsun.com/app/reference/crons/
-    crons:
-        celebrate-drupal:
-            spec: '*/19 * * * *'
-            commands:
-                start: 'cd web ; drush core-cron'
-
-    # Customizations to your PHP or Lisp runtime. More information: https://docs.upsun.com/app/reference/runtime/
-    # runtime:
-
-    # More information: https://docs.upsun.com/app/reference/additional-hosts/
-    # additional_hosts:
-
+# Unused while static; kept so the data survives a rollback.
 services:
   mariadb:
     type: mariadb:11.8
@@ -132,6 +71,14 @@ routes:
       paths:
         '/files/drupalcon-prague-2022-photobooth.zip':
           to: 'https://{default}/sites/default/files/DrupalConPrague2022-photobooth.zip'
+        # Formerly Drupal redirect module entries.
+        '/2020/drupalcon-north-america/photo':
+          to: 'https://{default}/2021/drupalcon-north-america/photo'
+          code: 302
+        '/drupalcon-europe-2021-official-photo':
+          to: 'https://{default}/2021/drupalcon-europe-2021/official-photo'
+        '/2020/drupalcon-europe-official-photo':
+          to: 'https://{default}/2020/drupalcon-europe-2020/official-photo'
 
   'https://www.{default}':
     type: redirect
