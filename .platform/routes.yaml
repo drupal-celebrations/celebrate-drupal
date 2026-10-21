@@ -17,6 +17,14 @@
       paths:
         '/files/drupalcon-prague-2022-photobooth.zip':
           to: 'https://{default}/sites/default/files/DrupalConPrague2022-photobooth.zip'
+        # Formerly Drupal redirect module entries.
+        '/2020/drupalcon-north-america/photo':
+          to: 'https://{default}/2021/drupalcon-north-america/photo'
+          code: 302
+        '/drupalcon-europe-2021-official-photo':
+          to: 'https://{default}/2021/drupalcon-europe-2021/official-photo'
+        '/2020/drupalcon-europe-official-photo':
+          to: 'https://{default}/2020/drupalcon-europe-2020/official-photo'
 
 "https://www.{default}/":
     type: redirect
