@@ -62,6 +62,9 @@
             "cweagans/composer-patches": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-recipe-unpack": true
+        },
+        "platform": {
+            "php": "8.3.99"
         }
     },
     "autoload": {
